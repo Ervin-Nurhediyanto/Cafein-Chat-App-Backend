@@ -5,7 +5,21 @@ module.exports = {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM users WHERE email = ?', email, (err, result) => {
         if (!err) {
-          resolve(result)
+          connection.query('UPDATE users SET status = "online" WHERE email = ?', email, (err, result) => {
+            if (!err) {
+              connection.query('SELECT * FROM users WHERE email = ?', email, (err, result) => {
+                if (!err) {
+                  resolve(result)
+                } else {
+                  reject(new Error(err))
+                }
+              })
+              // resolve(result)
+            } else {
+              reject(new Error(err))
+            }
+          })
+          // resolve(result)
         } else {
           reject(new Error(err))
         }
@@ -75,6 +89,17 @@ module.exports = {
       connection.query('UPDATE users SET ? WHERE id = ?', [data, id], (err, result) => {
         if (!err) {
           resolve('Update Success')
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  logout: (id) => {
+    return new Promise((resolve, reject) => {
+      connection.query('UPDATE users SET status = "offline" WHERE id = ?', id, (err, result) => {
+        if (!err) {
+          resolve('Logout Success')
         } else {
           reject(new Error(err))
         }

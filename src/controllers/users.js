@@ -134,5 +134,16 @@ module.exports = {
       .catch((err) => {
         console.log(err)
       })
+  },
+  logout: (req, res) => {
+    const id = req.params.id
+
+    modelUser.logout(id)
+      .then((result) => {
+        helpers.response(res, null, result, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }

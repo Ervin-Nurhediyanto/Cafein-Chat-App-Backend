@@ -11,5 +11,7 @@ router
   .patch('/resetpassword/:id', userController.resetPassword)
   .patch('/update/:id', upload, userController.updateUser)
   .get('/:id', userController.getUserById)
+  .get('/', userController.getAllUser)
+  .post('/logout/:id', userController.logout)
 
 module.exports = router

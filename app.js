@@ -14,27 +14,18 @@ io.on('connection', socket => {
   console.log('client connect')
 
   socket.on('welcomeMessage', user => {
-    // console.log(user.room)
-    // user.room.map(room=>{
-    //     socket.join(room)
-    // })
-
-    // private message
-    // socket.join('user:'+user.id)
-
-    // group
     socket.join(user.room)
-    socket.emit('message', 'both : Selamat menggunakan aplikasi chat ' + user.username)
-    socket.broadcast.to(user.room).emit('notif', 'both: user join... ' + user.username)
+    socket.emit('notif', 'Hallo ' + user.username)
+    // socket.broadcast.to(user.room).emit('notif', 'both: user join... ' + user.username)
   })
 
   socket.on('sendMessage', (data) => {
-    // const error = true
-    // if (error) {
-    //   callback('server down')
-    // }
-    // const time = new Date()
-    io.to(data.room).emit('message', data.message)
+    // io.to(data.room).emit('message', data.message)
+    io.to(data.room).emit('message', {
+      message: data.message,
+      userId: data.userId,
+      image: data.image
+    })
   })
 
   socket.on('disconnect', () => {
@@ -51,6 +42,4 @@ app.use('/api/v1/', routes)
 const PORT = process.env.PORT
 
 app.use('/uploads', express.static('./uploads'))
-// app.listen(PORT, () => { console.log(`Server started on port ${PORT}`) })
-
 server.listen(PORT, () => console.log('SERVER STARTED ON PORT ' + PORT + ' 🚀'))
