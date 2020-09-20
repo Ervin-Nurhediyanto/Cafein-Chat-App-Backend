@@ -24,7 +24,18 @@ io.on('connection', socket => {
     io.to(data.room).emit('message', {
       message: data.message,
       userId: data.userId,
-      image: data.image
+      image: data.image,
+      location: data.location
+    })
+  })
+
+  socket.on('sendUser', data => {
+    socket.join(data.room)
+    io.to(data.room).emit('message', {
+      message: data.message,
+      userId: data.userId,
+      image: data.image,
+      location: data.location
     })
   })
 
