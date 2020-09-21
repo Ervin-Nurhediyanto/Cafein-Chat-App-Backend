@@ -82,7 +82,8 @@ module.exports = {
   },
 
   getAllUser: (req, res) => {
-    modelUser.getAllUser()
+    const search = req.query.search
+    modelUser.getAllUser(search)
       .then((result) => {
         console.log(result)
         if (result != '') {
@@ -112,11 +113,13 @@ module.exports = {
   },
   updateUser: (req, res) => {
     const id = req.params.id
-    const { name, userName } = req.body
+    const { name, userName, phoneNumber, bio } = req.body
 
     const data = {
       name,
-      userName
+      userName,
+      phoneNumber,
+      bio
     }
 
     if (req.files) {

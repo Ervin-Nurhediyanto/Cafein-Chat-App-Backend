@@ -14,14 +14,14 @@ io.on('connection', socket => {
   console.log('client connect')
 
   socket.on('welcomeMessage', user => {
-    socket.join(user.room)
+    // socket.join(user.room)
     socket.emit('notif', 'Hallo ' + user.username)
-    // socket.broadcast.to(user.room).emit('notif', 'both: user join... ' + user.username)
+    socket.broadcast.to(user.room).emit('notif', 'both: user join... ' + user.username)
   })
 
   socket.on('sendMessage', (data) => {
-    // io.to(data.room).emit('message', data.message)
-    io.to(data.room).emit('message', {
+    socket.join(data.socketId)
+    io.to(data.socketId).emit('message', {
       message: data.message,
       userId: data.userId,
       image: data.image,
@@ -29,14 +29,9 @@ io.on('connection', socket => {
     })
   })
 
-  socket.on('sendUser', data => {
-    socket.join(data.room)
-    io.to(data.room).emit('message', {
-      message: data.message,
-      userId: data.userId,
-      image: data.image,
-      location: data.location
-    })
+  socket.on('chat', user => {
+    socket.join(user.room)
+    socket.emit('notif', 'Join room: ' + user.room)
   })
 
   socket.on('disconnect', () => {

@@ -3,6 +3,7 @@ const express = require('express')
 // const historiesRouters = require('./histories')
 // const categoriesRouters = require('./categories')
 const usersRouters = require('./users')
+const contactRouters = require('./contact')
 // const addressRouters = require('./address')
 const chatsRouters = require('./chats')
 const router = express.Router()
@@ -14,5 +15,6 @@ router
   .use('/users', usersRouters)
   // .use('/address', addressRouters)
   .use('/chats', chatsRouters)
+  .use('/contacts', contactRouters)
 
 module.exports = router

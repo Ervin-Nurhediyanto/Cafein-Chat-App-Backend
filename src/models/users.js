@@ -73,9 +73,15 @@ module.exports = {
     })
   },
 
-  getAllUser: () => {
+  getAllUser: (search) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM users', (err, result) => {
+      let searchUser = ''
+
+      if (search) {
+        searchUser = `WHERE name LIKE '%${search}%'`
+      }
+
+      connection.query(`SELECT *, TIME_FORMAT(timeOnline, "%H %i") AS "time" FROM users ${searchUser}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
