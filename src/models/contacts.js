@@ -12,13 +12,43 @@ const contacts = {
       })
     })
   },
+  //   getAllContact: (idUser, idFriend) => {
+  //     let checkContact = ''
+
+  //     if (idUser) {
+  //       if (idFriend) {
+  //         checkContact = `WHERE (idUser=${idUser} OR idUser=${idFriend}) AND (idFriend=${idUser} OR idFriend=${idFriend})`
+  //       } else {
+  //         checkContact = `WHERE idUser=${idUser}`
+  //       }
+  //     }
+
+  //     return new Promise((resolve, reject) => {
+  //       connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idFriend ${checkContact}`, (err, result) => {
+  //         if (!err) {
+  //           if (result == '') {
+  //             checkContact = `WHERE idFriend=${idUser}`
+  //             connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idUser ${checkContact}`, (err, result) => {
+  //               if (!err) {
+  //                 resolve(result)
+  //               }
+  //             })
+  //           } else {
+  //             resolve(result)
+  //           }
+  //         } else {
+  //           reject(new Error(err))
+  //         }
+  //       })
+  //     })
+  //   },
   getAllContact: (idUser, idFriend) => {
     let checkContact = ''
+    const contactList = []
 
     if (idUser) {
       if (idFriend) {
         checkContact = `WHERE (idUser=${idUser} OR idUser=${idFriend}) AND (idFriend=${idUser} OR idFriend=${idFriend})`
-        // checkContact = `WHERE idUser=${idUser} AND idFriend=${idFriend}`
       } else {
         checkContact = `WHERE idUser=${idUser}`
       }
@@ -27,16 +57,21 @@ const contacts = {
     return new Promise((resolve, reject) => {
       connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idFriend ${checkContact}`, (err, result) => {
         if (!err) {
-          if (result == '') {
-            checkContact = `WHERE idFriend=${idUser}`
-            connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idUser ${checkContact}`, (err, result) => {
-              if (!err) {
-                resolve(result)
-              }
-            })
-          } else {
-            resolve(result)
-          }
+          result.map((item) => {
+            return contactList.push(item)
+          })
+          checkContact = `WHERE idFriend=${idUser}`
+          connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idUser ${checkContact}`, (err, result) => {
+            if (!err) {
+            //   contactList.push(result)
+              result.map((item) => {
+                return contactList.push(item)
+              })
+              resolve(contactList)
+            } else {
+              resolve(contactList)
+            }
+          })
         } else {
           reject(new Error(err))
         }
