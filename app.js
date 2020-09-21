@@ -14,24 +14,28 @@ io.on('connection', socket => {
   console.log('client connect')
 
   socket.on('welcomeMessage', user => {
-    // socket.join(user.room)
-    socket.emit('notif', 'Hallo ' + user.username)
+    // console.log('socketId: ' + user.socketId)
+    // user.socketId.map((item) => {
+    //   socket.join(item)
+    // })
+    // socket.join(2)
+    // socket.join(3)
+    for (let i = 1; i<100; i++) {
+      socket.join(i)
+    }
+    // socket.emit('notif', 'Hallo ' + user.username)
     socket.broadcast.to(user.room).emit('notif', 'both: user join... ' + user.username)
   })
 
   socket.on('sendMessage', (data) => {
     socket.join(data.socketId)
     io.to(data.socketId).emit('message', {
+      socketId: data.socketId,
       message: data.message,
       userId: data.userId,
       image: data.image,
       location: data.location
     })
-  })
-
-  socket.on('chat', user => {
-    socket.join(user.room)
-    socket.emit('notif', 'Join room: ' + user.room)
   })
 
   socket.on('disconnect', () => {
