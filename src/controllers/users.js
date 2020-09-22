@@ -138,6 +138,32 @@ module.exports = {
         console.log(err)
       })
   },
+  updateImage: (req, res) => {
+    const id = req.params.id
+    // const { name, userName, phoneNumber, bio } = req.body
+
+    const data = {
+      image: req.files.map((item) => {
+        return process.env.BASE_URL + 'uploads/' + item.filename
+      }).join()
+    }
+
+    // if (req.files) {
+    //   data.image = req.files.map((item) => {
+    //     return process.env.BASE_URL + 'uploads/' + item.filename
+    //   }).join()
+    // }
+
+    modelUser.updateUser(id, data)
+      .then((result) => {
+        const resultProducts = result
+        console.log(result)
+        helpers.response(res, null, resultProducts, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
   logout: (req, res) => {
     const id = req.params.id
 

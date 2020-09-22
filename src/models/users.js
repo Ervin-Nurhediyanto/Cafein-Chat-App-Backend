@@ -101,6 +101,17 @@ module.exports = {
       })
     })
   },
+  updateImage: (id, data) => {
+    return new Promise((resolve, reject) => {
+      connection.query('UPDATE users SET ? WHERE id = ?', [data, id], (err, result) => {
+        if (!err) {
+          resolve('Upload Image Success')
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
   logout: (id) => {
     return new Promise((resolve, reject) => {
       connection.query('UPDATE users SET status = "offline" WHERE id = ?', id, (err, result) => {

@@ -10,6 +10,7 @@ router
   .post('/forgotpassword', userForgot.forgotPass)
   .patch('/resetpassword/:id', userController.resetPassword)
   .patch('/update/:id', upload, userController.updateUser)
+  .patch('/uploadImg/:id', upload, userController.updateImage)
   .get('/:id', userController.getUserById)
   .get('/', userController.getAllUser)
   .post('/logout/:id', userController.logout)
