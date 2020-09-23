@@ -21,7 +21,7 @@ const chats = {
     }
 
     return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM users INNER JOIN contacts ON users.id = contacts.idFriend INNER JOIN chats ON contacts.id = chats.idContact ${message}`, (err, result) => {
+      connection.query(`SELECT * FROM users INNER JOIN chats ON users.id = chats.idSender ${message}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

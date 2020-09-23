@@ -28,7 +28,7 @@ const chats = {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
         } else {
-          helpers.response(res, null, 'Message not found', 404, 'Error')
+          helpers.response(res, null, 'Message not found', 200, null)
         }
       })
       .catch((err) => {
@@ -69,17 +69,17 @@ const chats = {
       })
   },
   insertChat: (req, res) => {
-    const { idContact, idUser, chat, lat, lng } = req.body
+    const { idContact, idSender, chat, lat, lng } = req.body
     const data = {
       idContact,
-      idUser,
+      idSender,
       chat,
       lat,
       lng
     }
 
     if (req.files) {
-      data.image = req.files.map((item) => {
+      data.imageChat = req.files.map((item) => {
         return process.env.BASE_URL + 'uploads/' + item.filename
       }).join()
     }
