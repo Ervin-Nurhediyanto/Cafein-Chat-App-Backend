@@ -1,13 +1,13 @@
-# BlanjaBarokah - BackEnd
+# Cafein-Chat-App-BackEnd
 
-Simple application to CRUD database with node js, Express, and MySql.
-This application use JWT to authentication and authorization.
+Application to CRUD database with node js, Express, and MySql.
+This application use JWT to authentication and authorization,
+and socket.io to real-time chat.
 
 ## Table of Contents
 
-- [BlanjaBarokah-Back-End](#blanjabarokah-back-end)
+- [Cafein-Chat-App-BackEnd](#cafein-chat-app-backend)
   - [Table of Contents](#table-of-contents)
-  - [General info](#general-info)
   - [Built With](#built-with)
   - [Requirements](#requirements)
   - [Setup](#setup)
@@ -15,8 +15,6 @@ This application use JWT to authentication and authorization.
   - [Run the app](#run-the-app)
   - [REST API](#rest-api)
   
-## General info
-This project is simple CRUD data
 ## Built With
 * [Node.js](https://nodejs.org/en/)
 * [Express.js](https://expressjs.com/)
@@ -62,4 +60,4 @@ $ npm start
 
 ## REST API
 
-You can view my Postman collection [here](https://documenter.getpostman.com/view/5773671/TVK5cM7E)
+You can view my Postman collection [here](https://documenter.getpostman.com/view/11550213/TVKEXcj9)
