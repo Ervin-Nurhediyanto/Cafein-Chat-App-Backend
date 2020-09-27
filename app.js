@@ -34,7 +34,8 @@ io.on('connection', socket => {
       message: data.message,
       userId: data.userId,
       image: data.image,
-      location: data.location
+      location: data.location,
+      imageChat: data.imageChat
     })
   })
 

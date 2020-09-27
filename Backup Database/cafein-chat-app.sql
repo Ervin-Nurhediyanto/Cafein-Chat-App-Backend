@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Sep 2020 pada 05.45
+-- Waktu pembuatan: 24 Sep 2020 pada 02.17
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -30,18 +30,29 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `chats` (
   `id` int(11) NOT NULL,
+  `idContact` int(11) NOT NULL,
+  `idSender` int(11) NOT NULL,
   `chat` varchar(256) NOT NULL,
-  `idUser` int(11) NOT NULL,
-  `idFriend` int(11) NOT NULL
+  `imageChat` varchar(256) NOT NULL,
+  `lat` varchar(256) NOT NULL,
+  `lng` varchar(256) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `chats`
 --
 
-INSERT INTO `chats` (`id`, `chat`, `idUser`, `idFriend`) VALUES
-(1, 'Halloo', 1, 2),
-(2, 'ya Halloo', 2, 1);
+INSERT INTO `chats` (`id`, `idContact`, `idSender`, `chat`, `imageChat`, `lat`, `lng`, `time`) VALUES
+(16, 6, 7, 'Ervin', '', '', '', '2020-09-23 18:57:03'),
+(17, 6, 1, 'ya pak jokowi', '', '', '', '2020-09-23 18:57:45'),
+(18, 6, 7, 'sebutkan 10 nama ikan', '', '', '', '2020-09-23 19:05:57'),
+(19, 6, 1, 'Ikan Tongkol, Ikan Cakalang, Ikan Tuna, Ikan Teri, Ikan Kakap, Ikan Kembung, Ikan Makarel, Ikan Baronang, Ikan Tenggiri, Ikan Belanak', '', '', '', '2020-09-23 19:08:23'),
+(20, 6, 7, 'yaudah ambil sepedanya', '', '', '', '2020-09-23 19:09:16'),
+(21, 6, 1, 'alhamdulillah dapat sepeda, terimakasih pak jokowi', '', '', '', '2020-09-23 19:10:14'),
+(22, 3, 4, 'oppa', '', '', '', '2020-09-23 19:26:23'),
+(26, 3, 1, 'nani ?', '', '', '', '2020-09-23 19:46:43'),
+(27, 3, 4, 'where are you ?', '', '', '', '2020-09-23 19:46:48');
 
 -- --------------------------------------------------------
 
@@ -68,7 +79,9 @@ INSERT INTO `contacts` (`id`, `idUser`, `idFriend`) VALUES
 (6, 1, 7),
 (7, 2, 3),
 (8, 2, 4),
-(10, 5, 6);
+(14, 7, 2),
+(19, 1, 9),
+(20, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -96,14 +109,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`, `userName`, `phoneNumber`, `bio`, `status`, `timeOnline`, `lat`, `lng`) VALUES
-(1, 'Ervin Nurhediyanto', 'cafeinai311@gmail.com', '$2a$10$Vm1cejgHgXN834NxIdomGuNem6raXSHLc366t9U5WQxcoOscglyLO', 'http://localhost:4000/uploads/1600448608311-foto_headshot.jpg', 'Cafein', '082xxxxxxxxx', 'Fullstack Web Developer', 'online', '2020-09-21 16:42:29', '', ''),
-(2, 'Cafein', 'cafeinai689@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600354029959-cafein.jpg', 'Cafeinai', '', 'Backend Developer', 'offline', '2020-09-21 09:15:57', '-6.200000', '106.816666'),
-(3, 'Bae Suzy', 'suzy@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600616758011-bae-suzy.jpg', 'BaeSuzy', '089XXXXXXXXX', 'South Korean actress and singer', 'online', '2020-09-21 16:43:22', '-7.161367', '113.482498'),
-(4, 'Nayeon', 'nayeon@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600616775058-im-nayeon.jpg', 'nayeon', '082xxxxxxxxx', 'South Korean singer', 'offline', '2020-09-21 16:42:53', '5.548290', '95.323753'),
-(5, 'Yuigahama', 'yui@gmail.com', '$2a$10$0b6UEpRBNnGjzX/SQO3mBOVK7lo1SnvLA.rc.h81KiCW/8r/Cp.XK', 'http://localhost:4000/uploads/1600616784984-yui.jpg', 'yui', '089xxx999xxx', 'student in Class 2F of Sōbu High School and the first official customer of the Service Club.', 'offline', '2020-09-21 16:43:29', '-3.654703', '128.190643'),
-(6, 'Rem', 'rem@gmail.com', '$2a$10$VHGfcORNbANPBKsswdy9Yuc5gvPscrnNA9rNhbIGRnEJCbPVPTa/6', 'http://localhost:4000/uploads/1600616795524-rem.jpg', 'rem', '087xxxxxxxxx', 'twin maids who worked for Roswaal L Mathers', 'online', '2020-09-21 16:43:37', '', ''),
-(7, 'Solo Player', 'solo@gmail.com', '$2a$10$Kbi395fLdsa3EXya1jaSsOnhR7YQjUd5NO2ML0p2A6HtHm5QIykBO', '', '', '', '', '', '2020-09-21 03:50:06', '', ''),
-(8, 'Yololo', 'yolo@gmail.com', '$2a$10$DTaOBMFpiHNAFjBDEHmG2O78FXNGHLPyEU1Yp8UP.eojHLfrmBlQW', 'http://localhost:4000/uploads/1600677304575-im-nayeon.jpg', 'yol', '098xxxxx', 'tes yolo', 'online', '2020-09-21 08:35:04', '', '');
+(1, 'Ervin Nurhediyanto', 'cafeinai311@gmail.com', '$2a$10$R7.7EEAailwO7ktck4EAHOs3N0rGfTikLP3tvHXgLJ0LM/LiKzOlW', 'http://localhost:4000/uploads/1600886978200-Cafeinai.jpg', 'Cafein', '082xxxxxxxxx', 'Fullstack Web Developer', 'online', '2020-09-23 19:30:51', '', ''),
+(2, 'Cafein', 'cafeinai689@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600887014429-cafein.jpg', 'Cafeinai', '', 'Backend Developer', 'offline', '2020-09-23 18:51:50', '-6.200000', '106.816666'),
+(3, 'Bae Suzy', 'suzy@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600887138591-bae-suzy.jpg', 'BaeSuzy', '089XXXXXXXXX', 'South Korean actress and singer', 'offline', '2020-09-23 18:52:42', '-7.161367', '113.482498'),
+(4, 'Nayeon', 'nayeon@gmail.com', '$2a$10$vMTnhyJZl639BnrUPFvpvu76/q3Cx0GqsGImKZgDWuv4K0TCijN16', 'http://localhost:4000/uploads/1600887191024-im-nayeon.jpg', 'nayeon', '082xxxxxxxxx', 'South Korean singer', 'online', '2020-09-23 19:29:59', '5.548290', '95.323753'),
+(5, 'Yuigahama', 'yui@gmail.com', '$2a$10$0b6UEpRBNnGjzX/SQO3mBOVK7lo1SnvLA.rc.h81KiCW/8r/Cp.XK', 'http://localhost:4000/uploads/1600887230646-yui.jpg', 'yui', '089xxx999xxx', 'student in Class 2F of Sōbu High School and the first official customer of the Service Club.', 'offline', '2020-09-23 18:54:17', '-3.654703', '128.190643'),
+(6, 'Rem', 'rem@gmail.com', '$2a$10$VHGfcORNbANPBKsswdy9Yuc5gvPscrnNA9rNhbIGRnEJCbPVPTa/6', 'http://localhost:4000/uploads/1600887291071-rem.jpg', 'rem', '087xxxxxxxxx', 'twin maids who worked for Roswaal L Mathers', 'offline', '2020-09-23 18:55:01', '-7.550676', '110.828316'),
+(7, 'Jokowi', 'jokowi@gmail.com', '$2a$10$R7.7EEAailwO7ktck4EAHOs3N0rGfTikLP3tvHXgLJ0LM/LiKzOlW', 'http://localhost:4000/uploads/1600887393854-jokowi.jpg', 'jokowi', '', 'Presiden RI', 'offline', '2020-09-23 19:29:51', '-6.200000', '106.816666'),
+(8, 'Tzuyu', 'tzuyu@gmail.com', '$2a$10$DTaOBMFpiHNAFjBDEHmG2O78FXNGHLPyEU1Yp8UP.eojHLfrmBlQW', 'http://localhost:4000/uploads/1600887521911-tzuyu.jpg', 'tzuyu', '098xxxxx', 'Twice member', 'offline', '2020-09-23 18:58:54', '', ''),
+(9, 'Jihyo', 'jihyo@gmail.com', '$2a$10$UPpn6Ko7tH0J3AXQiWbCW.0W4i482in59UmbAIiORXcLuJ29HdCIa', 'http://localhost:4000/uploads/1600887578202-jihyo.jpg', 'jihyo', '', 'Twice member', 'offline', '2020-09-23 18:59:54', '', ''),
+(10, 'Asuna', 'asuna@gmail.com', '$2a$10$3YY02dzkX3XSHUZHTcF7Uu1k4eZfKqXPmaWlwzeVLk.FBXFR7A92G', 'http://localhost:4000/uploads/1600887630897-asuna.jpg', 'asuna', '', 'SAO player', 'offline', '2020-09-23 19:04:21', '', '');
 
 --
 -- Indexes for dumped tables
@@ -135,19 +150,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

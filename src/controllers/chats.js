@@ -18,12 +18,12 @@ const chats = {
   },
   getAllchat: (req, res) => {
     const idContact = req.query.idContact
-    // const sort = req.query.sort
+    const sort = req.query.sort
     // const order = req.query.order
     // const page = req.query.page
     // const limit = req.query.limit
 
-    chatModels.getAllchat(idContact)
+    chatModels.getAllchat(idContact, sort)
       .then((result) => {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
@@ -69,13 +69,17 @@ const chats = {
       })
   },
   insertChat: (req, res) => {
-    const { idContact, idSender, chat, lat, lng } = req.body
+    const { idContact, idSender, lat, lng } = req.body
     const data = {
       idContact,
       idSender,
-      chat,
+      // chat,
       lat,
       lng
+    }
+
+    if (req.body.chat) {
+      data.chat = req.body.chat
     }
 
     if (req.files) {

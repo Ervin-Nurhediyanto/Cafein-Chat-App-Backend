@@ -13,15 +13,20 @@ const chats = {
     })
   },
 
-  getAllchat: (idContact) => {
+  getAllchat: (idContact, sort) => {
     let message = ''
+    let sortMessage = ''
 
     if (idContact) {
       message = `WHERE chats.idContact=${idContact}`
     }
 
+    if (sort) {
+      sortMessage = `ORDER BY ${sort} DESC`
+    }
+
     return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM users INNER JOIN chats ON users.id = chats.idSender ${message}`, (err, result) => {
+      connection.query(`SELECT * FROM users INNER JOIN chats ON users.id = chats.idSender ${message} ${sortMessage}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
